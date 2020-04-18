@@ -37,7 +37,7 @@ class SitemapGenerator
         });
 
         Discussion::whereVisibleTo(new Guest())->each(function (Discussion $discussion) use (&$urlSet, $url) {
-            $urlSet->addUrl($url . '/d/' . $discussion->id . '-' . $discussion->slug, $discussion->last_posted_at, Frequency::DAILY, '0.7');
+            $urlSet->addUrl($url . '/d/' . $discussion->id, $discussion->last_posted_at, Frequency::DAILY, '0.7');
         });
 
         if ($this->extensions->isEnabled('flarum-tags') && class_exists(Tag::class)) {
@@ -48,7 +48,7 @@ class SitemapGenerator
 
         if ($this->extensions->isEnabled('sijad-pages') && class_exists(Page::class)) {
             Page::query()->each(function (Page $page) use (&$urlSet, $url) {
-                $urlSet->addUrl($url . '/p/' . $page->id . '-' . $page->slug, $page->edit_time, Frequency::DAILY, 0.5);
+                $urlSet->addUrl($url . '/p/' . $page->id, $page->edit_time, Frequency::DAILY, 0.5);
             });
         }
 
